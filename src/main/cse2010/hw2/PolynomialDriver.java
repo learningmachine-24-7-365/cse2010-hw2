@@ -16,13 +16,12 @@ public class PolynomialDriver {
 
     public static void main(String[] args) {
 
-        /*
-         * Construct a polynomial f(x)
-         */
+        // Construct polynomial f(x)
         Polynomial f = new DLinkedPolynomial(); // Create an empty list
 
         f.addTerm(10.0, 8);
-        f.addTerm(5.0, 4);
+        f.addTerm(3.0, 4);
+        f.addTerm(2.0, 4);
         f.addTerm(3.0, 1);
         f.addTerm(2.0, 3);
         f.addTerm(7.0, 0);
@@ -32,9 +31,7 @@ public class PolynomialDriver {
         System.out.println("f(10) = " + f.evaluate(10.0));
         System.out.println("Coefficient for 4 is " + f.getCoefficient(4) + "\n");
 
-        /*
-         * Construct a polynomial g(x)
-         */
+        // Construct polynomial g(x)
         Polynomial g = new DLinkedPolynomial(); // Create an empty list
 
         g.addTerm(1.0, 1);
@@ -47,18 +44,16 @@ public class PolynomialDriver {
         System.out.println("g(10) = " + g.evaluate(10.0));
         System.out.println("Coefficient for 4 is " + g.getCoefficient(4) + "\n");
 
-        /*
-         * Add f(x) + g(x)
-         */
+        // Add f(x) + g(x)
+        var sum_p = f.add(g);
+        System.out.print("f(x) + g(x) = " + sum_p);
+        System.out.println("Degree: " + sum_p.getDegree());
+        System.out.println("sum_p(10) = " + sum_p.evaluate(10.0));
 
-        System.out.print("f(x) + g(x) = ");
-        System.out.println(f.add(g));
-
-        /*
-         * Multiply f(x) * g(x)
-         */
-
-        System.out.print("f(x) * g(x) = ");
-        System.out.println(f.mult(g));
+        // Multiply f(x) * g(x)
+        var mult_p = f.mult(g);
+        System.out.print("f(x) * g(x) = " + mult_p);
+        System.out.println("Degree: " + mult_p.getDegree());
+        System.out.println("sum_p(10) = " + mult_p.evaluate(10.0));
     }
 }
