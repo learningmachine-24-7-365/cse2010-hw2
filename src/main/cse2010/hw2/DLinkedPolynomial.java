@@ -16,28 +16,26 @@ public class DLinkedPolynomial implements Polynomial {
     @Override
     public int getDegree() {
         if (list.isEmpty()) {
-            return 0; // 링크드 리스트가 비어 있으면 0을 반환함. 
+            return 0; 
         }
 
-        int maxDegree = Integer.MIN_VALUE; // 초기값을 최소값으로 설정
-        Node<Term> current = list.getFirstNode(); // 리스트의 첫 번째 노드부터 시작
+        Node<Term> current = list.getFirstNode(); 
+        int maxDegree = Integer.MIN_VALUE; 
 
         while (current != null) {
-            maxDegree = Math.max(maxDegree, current.getInfo().expo); // 현재 노드의 차수와 최대 차수를 비교하여 최대값을 업데이트
-            current = list.getNextNode(current); // 다음 노드로 이동
+            current = list.getNextNode(current); 
+            maxDegree = Math.max(maxDegree, current.getInfo().expo); 
         }
 
-        return maxDegree; // 최대 차수를 반환   
+        return maxDegree;
     }
 
     @Override
     public double getCoefficient(final int expo) {
         Node<Term> term = list.find(new Term(0.0, expo), Term::compareExponents);
+        double result = term != null ? term.getInfo().coeff : 0.0; // 해당 차수의 계수를 찾음
 
-        if (term != null) {
-            return term.getInfo().coeff; // 해당 차수의 계수를 반환
-        }
-        else return 0; // you may delete this line
+        return result;
     }
 
     private Term addTerms(Term x, Term y) {
@@ -94,7 +92,7 @@ public class DLinkedPolynomial implements Polynomial {
 
     @Override
     public void addTerm(final double coeff, final int expo) {
-        if (coeff == 0) return; // 계수가 0이면 추가할 필요 없음
+        if (coeff == 0) return;
 
         Term newTerm = new Term(coeff, expo);
         Node<Term> current = list.getFirstNode();
@@ -105,13 +103,12 @@ public class DLinkedPolynomial implements Polynomial {
             if (compareCoeff == 0) { 
                 double newCoeff = current.getInfo().coeff + coeff;
                 if (newCoeff == 0) {
-                    list.remove(current); // 계수가 0이 되면 제거
+                    list.remove(current);
                 } else {
-                    current.getInfo().coeff = newCoeff; // 계수 업데이트
+                    current.getInfo().coeff = newCoeff; 
                 }
                 return;
             } else if (compareCoeff < 0) {
-                // 현재 항의 차수가 작으면 그 전에 삽입해야 하므로 이전에 추가
                 list.addBefore(current, new Node<>(newTerm, null, null));
                 return;
             }
@@ -119,19 +116,14 @@ public class DLinkedPolynomial implements Polynomial {
             current = list.getNextNode(current);
         }
 
-        // 끝까지 가도 못 찾으면 마지막에 추가
         list.addLast(new Node<>(newTerm, null, null));
     }
 
     @Override
     public void removeTerm(final int expo) {
-        // 특정 차수의 항을 찾음
         Node<Term> node = list.find(new Term(0, expo), Term::compareExponents);
     
-        // 해당 항이 존재하면 리스트에서 제거
-        if (node != null) {
-            list.remove(node);
-        }
+        if (node != null) list.remove(node);
     }
 
     @Override
@@ -146,7 +138,7 @@ public class DLinkedPolynomial implements Polynomial {
 
         while (current != null) {
             Term term = current.getInfo();
-            evalResult += term.coeff * Math.pow(val, term.expo); // 계산: 계수 * (val^차수)
+            evalResult += term.coeff * Math.pow(val, term.expo);
             current = list.getNextNode(current);
         }
 
