@@ -91,9 +91,12 @@ public class DLinkedList<T> {
         Objects.requireNonNull(p, "cannot not be null");
         Objects.requireNonNull(n, "cannot not be null");
 
-       /*
-            Complete the code here
-        */
+        Node<T> prev = p.getPrev();
+        n.setNext(p);
+        n.setPrev(prev);
+        prev.setNext(n);
+        p.setPrev(n);
+        size++;
     }
 
     /**
@@ -106,9 +109,12 @@ public class DLinkedList<T> {
         Objects.requireNonNull(p, "cannot not be null");
         Objects.requireNonNull(n, "cannot not be null");
 
-       /*
-            Complete the code here
-        */
+        Node<T> next = p.getNext();
+        n.setPrev(p);   
+        n.setNext(next);
+        p.setNext(n);
+        next.setPrev(n);
+        size++;
     }
 
     /**
@@ -121,10 +127,13 @@ public class DLinkedList<T> {
         if (p == null || p == header || p == trailer)
             return null;
 
-       /*
-            Complete the code here
-        */
-        return null; // modify this line if necessary
+        Node<T> prev = p.getPrev();
+        Node<T> next = p.getNext();
+        prev.setNext(next);
+        next.setPrev(prev);
+        size--;
+        
+        return p.getInfo(); // modify this line if necessary
     }
 
     /**
