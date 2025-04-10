@@ -124,6 +124,7 @@ public class DLinkedPolynomial implements Polynomial {
         Node<Term> node = list.find(new Term(0, expo), Term::compareExponents);
     
         if (node != null) list.remove(node);
+        else throw new NoSuchTermExistsException(expo + "차 항이 존재하지 않습니다."); // No such term exists
     }
 
     @Override
