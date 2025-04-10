@@ -60,13 +60,16 @@ public class Term {
      * 0 if t1 == t2,
      */
     public static int compare(Term t1, Term t2) {
-        return switch (Integer.compare(t1.expo, t2.expo)) {
-            case 1 -> 1;
-            case -1 -> -1;
-            default -> Double.compare(t1.coeff, t2.coeff);
-        };
+        int comparison = Integer.compare(t1.expo, t2.expo);
+        switch (comparison) {
+            case 1:
+                return 1;
+            case -1:
+                return -1;
+            default:
+                return Double.compare(t1.coeff, t2.coeff);
+        }
     }
-
     /**
      * Compares this Term object with another object for equality.
      *
@@ -77,8 +80,9 @@ public class Term {
     public boolean equals(final Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof Term term))
+        if (!(o instanceof Term))
             return false;
+        Term term = (Term) o;
         return Double.compare(term.coeff, coeff) == 0 &&
                 expo == term.expo;
     }

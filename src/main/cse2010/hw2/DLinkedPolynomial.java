@@ -23,8 +23,8 @@ public class DLinkedPolynomial implements Polynomial {
         int maxDegree = Integer.MIN_VALUE; 
 
         while (current != null) {
-            current = list.getNextNode(current); 
             maxDegree = Math.max(maxDegree, current.getInfo().expo); 
+            current = list.getNextNode(current); 
         }
 
         return maxDegree;
